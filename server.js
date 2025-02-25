@@ -6,28 +6,38 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-
 app.use(express.static('public'));
 
+let users = {};
+let userCount = 0;
 
 io.on('connection', (socket) => {
-    console.log('Um usuário conectou:', socket.id);
+    userCount++;
+    const userId = `Usuário #${userCount}`;
+    users[socket.id] = userId;
 
-    
-    socket.on('chat message', (msg) => {
-        console.log(`Mensagem recebida: ${msg}`);
-        io.emit('chat message', msg); 
+    console.log(`${userId} conectou:`);
+    io.emit('user connected', userId);
+
+    socket.on('set username', (username) => {
+        users[socket.id] = username;
+        io.emit('user connected', username);
     });
 
+    socket.on('chat message', (msg) => {
+        const username = users[socket.id];
+        console.log(`Mensagem recebida de ${username}: ${msg}`);
+        io.emit('chat message', { username, msg });
+    });
 
     socket.on('disconnect', () => {
-        console.log('Um usuário desconectou:', socket.id);
+        const username = users[socket.id];
+        console.log(`${username} desconectou:`);
+        delete users[socket.id];
+        io.emit('user disconnected', username);
     });
 });
 
-//ip local : 10.0.0.130
-// http://10.0.0.130:3000
-
-server.listen(3000, '0.0.0.0', () => {
-    console.log('Servidor rodando em http://localhost:3000 ou pelo IP local');
+server.listen(3000, () => {
+    console.log('Servidor rodando em http://localhost:3000');
 });

@@ -1,1 +1,48 @@
-node_modules/
+# Ignora a pasta node_modules
+/node_modules
+
+# Ignora arquivos de ambiente (como .env)
+.env
+.env.local
+.env.development
+.env.production
+
+# Ignora logs e diretórios de cache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+/.cache
+/.tmp
+/.temp
+
+# Ignora arquivos de configuração do IDE
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ignora arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignora builds e pastas de distribuição
+/dist
+/build
+/out
+/.next
+
+# Ignora arquivos de dependências instaladas localmente
+/.pnp
+.pnp.js
+
+# Ignora arquivos de configuração do npm/yarn
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignora arquivos de cobertura de testes
+/coverage
