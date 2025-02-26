@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (username) {
             localStorage.setItem('username', username); // Armazena o nome de usuário
-            socket.emit('set username', username); // Envia o nome de usuário para o servidor
-            window.location.href = '/chat'; // Redireciona para a página do chat
+            socket.emit('set username', username);
+            window.location.href = '/chat'; 
         }
     });
 });

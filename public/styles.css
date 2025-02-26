@@ -51,9 +51,9 @@ body {
 }
 
 #messages li.user-joined {
-    background: #2ecc71; /* Verde para "entrou" */
-    color: #fff;
-    text-align: center;
+    background: #2b2e2c; /* Verde para "entrou" */
+    color: #54cc36;
+    
 }
 
 form {
@@ -75,15 +75,17 @@ input {
 
 button {
     padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background: #007BFF;
+    margin: 10px;
+    font-size: 1rem;
+    background-color: #c9c7c7;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
-    background: #0056b3;
+    background-color: #3d3b32;
+    color:#f8f8f8;
+    transform: scale(1.05);
 }

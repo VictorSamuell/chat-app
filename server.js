@@ -7,26 +7,26 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-// Serve arquivos estáticos da pasta "public"
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rota padrão para o index.html
+// index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Rota para o chat.html
+// chat.html
 app.get('/chat', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'chat.html'));
 });
 
-// Lógica do Socket.IO
+//lista para armazenar os usuários conectados   
 let users = {};
 
 io.on('connection', (socket) => {
     console.log('Um usuário conectou:', socket.id);
 
-    // Define o nome de usuário
+    // Define o nome de usuário para o socket.id
     socket.on('set username', (username) => {
         users[socket.id] = username;
         console.log(`${username} entrou na sala.`);
@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    // Notifica quando um usuário desconecta
+    
     socket.on('disconnect', () => {
         const username = users[socket.id];
         if (username) {
