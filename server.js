@@ -8,48 +8,48 @@ const io = new Server(server);
 
 app.use(express.static('public'));
 
-let users = {}; // Armazena os usuários conectados
+let users = {}; // lista para armazenar os usuarios conectados
 
 io.on('connection', (socket) => {
     console.log('Um usuário conectou:', socket.id);
 
-    // Define o nome de usuário
+    // definir o nome do usuário de acordo com o digitado
     socket.on('set username', (username) => {
         if (users[socket.id]) {
             console.log(`Usuário ${users[socket.id]} já está na sala.`);
             return;
         }
 
-        users[socket.id] = username; // Armazena o nome de usuário
+        users[socket.id] = username; // pega o nome dos usuarios
         console.log(`${username} entrou na sala.`);
-        io.emit('user connected', username); // Notifica que um novo usuário entrou
+        io.emit('user connected', username); // emissao / notificação de entrada de novo usuario
     });
 
-    // Recebe mensagens do cliente
+    //receber as msg do client
     socket.on('chat message', (msg) => {
-        const username = users[socket.id]; // Recupera o nome de usuário
+        const username = users[socket.id]; 
         if (username) {
             console.log(`${username} enviou uma mensagem: ${msg}`);
-            io.emit('chat message', { username, msg }); // Envia a mensagem com o nome de usuário
+            io.emit('chat message', { username, msg }); 
         } else {
             console.log('Erro: Nome de usuário não definido para o socket.id:', socket.id);
         }
     });
 
-    // Remove o usuário da lista quando ele desconecta
+    //remove o usuario da lista users quando ele descnoecta
     socket.on('disconnect', () => {
         const username = users[socket.id];
         if (username) {
             console.log(`${username} saiu da sala.`);
-            delete users[socket.id]; // Remove o usuário da lista
+            delete users[socket.id]; 
         } else {
             console.log('Um usuário desconectou sem definir um nome.');
         }
     });
 });
 
-// Configura a porta para rodar tanto localmente quanto no Vercel
-const PORT = process.env.PORT || 4000; // Usa a porta do Vercel ou 4000 localmente
+// porta pra rodar tanto local quanto no vercel / heroku os etc
+const PORT = process.env.PORT || 4000; 
 server.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
