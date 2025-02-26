@@ -1,35 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const socket = io(); // Conecta ao servidor Socket.IO
+    const socket = io();
 
     const form = document.getElementById('chat-form');
     const input = document.getElementById('input');
     const messages = document.getElementById('messages');
 
-    // Recupera o nome de usuário do localStorage
     const username = localStorage.getItem('username');
     if (username) {
-        socket.emit('set username', username); // Envia o nome de usuário para o servidor
+        socket.emit('set username', username);
     }
 
-    // Envia mensagem ao servidor
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         if (input.value) {
-            socket.emit('chat message', input.value); // Envia a mensagem
-            input.value = ''; // Limpa o campo de input
+            socket.emit('chat message', input.value);
+            input.value = '';
         }
     });
 
-    // Recebe mensagens do servidor
     socket.on('chat message', (data) => {
         const item = document.createElement('li');
         item.textContent = `${data.username}: ${data.msg}`;
         item.classList.add('message');
         messages.appendChild(item);
-        messages.scrollTop = messages.scrollHeight; // Rola para a última mensagem
+        messages.scrollTop = messages.scrollHeight;
     });
 
-    // Notifica quando um usuário entra no chat
     socket.on('user connected', (username) => {
         const item = document.createElement('li');
         item.textContent = `${username} entrou no chat.`;

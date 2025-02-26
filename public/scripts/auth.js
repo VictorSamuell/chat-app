@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const socket = io(); // Conecta ao servidor Socket.IO
+    const socket = io();
 
     const usernameForm = document.getElementById('username-form');
     const usernameInput = document.getElementById('username-input');
