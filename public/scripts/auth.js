@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const socket = io(); // Conecta ao servidor Socket.IO
 
-    const entryContainer = document.getElementById('entry-container');
-    const chatContainer = document.getElementById('chat-container');
     const usernameForm = document.getElementById('username-form');
     const usernameInput = document.getElementById('username-input');
 
@@ -11,12 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = usernameInput.value.trim();
 
         if (username) {
-            localStorage.setItem('username', username); // Armazena o nome de usuário
-            socket.emit('set username', username); // Envia o nome de usuário para o servidor
-            window.location.href = 'chat.html';
-            // Oculta o formulário de entrada e mostra o chat
-            entryContainer.style.display = 'none';
-            chatContainer.style.display = 'block';
+            localStorage.setItem('username', username); 
+            socket.emit('set username', username); 
+            window.location.href = 'chat.html'; 
         }
     });
 });

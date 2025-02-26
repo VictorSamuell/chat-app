@@ -1,22 +1,23 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
 // Serve arquivos estáticos da pasta "public"
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Rota padrão para o index.html
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Rota para o chat.html
 app.get('/chat', (req, res) => {
-    res.sendFile(__dirname + '/public/chat.html');
+    res.sendFile(path.join(__dirname, 'public', 'chat.html'));
 });
 
 // Lógica do Socket.IO
