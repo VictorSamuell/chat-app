@@ -6,50 +6,55 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
+// Serve arquivos estáticos da pasta "public"
 app.use(express.static('public'));
 
-let users = {}; // lista para armazenar os usuarios conectados
+// Rota padrão para o index.html
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
+// Rota para o chat.html
+app.get('/chat', (req, res) => {
+    res.sendFile(__dirname + '/public/chat.html');
+});
+
+// Lógica do Socket.IO
+let users = {};
 
 io.on('connection', (socket) => {
     console.log('Um usuário conectou:', socket.id);
 
-    // definir o nome do usuário de acordo com o digitado
+    // Define o nome de usuário
     socket.on('set username', (username) => {
-        if (users[socket.id]) {
-            console.log(`Usuário ${users[socket.id]} já está na sala.`);
-            return;
-        }
-
-        users[socket.id] = username; // pega o nome dos usuarios
+        users[socket.id] = username;
         console.log(`${username} entrou na sala.`);
-        io.emit('user connected', username); // emissao / notificação de entrada de novo usuario
+        io.emit('user connected', username);
     });
 
-    //receber as msg do client
+    // Recebe mensagens do cliente
     socket.on('chat message', (msg) => {
-        const username = users[socket.id]; 
+        const username = users[socket.id];
         if (username) {
             console.log(`${username} enviou uma mensagem: ${msg}`);
-            io.emit('chat message', { username, msg }); 
+            io.emit('chat message', { username, msg });
         } else {
             console.log('Erro: Nome de usuário não definido para o socket.id:', socket.id);
         }
     });
 
-    //remove o usuario da lista users quando ele descnoecta
+    // Notifica quando um usuário desconecta
     socket.on('disconnect', () => {
         const username = users[socket.id];
         if (username) {
             console.log(`${username} saiu da sala.`);
-            delete users[socket.id]; 
-        } else {
-            console.log('Um usuário desconectou sem definir um nome.');
+            delete users[socket.id];
         }
     });
 });
 
-// porta pra rodar tanto local quanto no vercel / heroku os etc
-const PORT = process.env.PORT || 4000; 
+// Inicia o servidor
+const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });

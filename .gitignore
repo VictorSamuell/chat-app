@@ -46,3 +46,4 @@ pnpm-lock.yaml
 
 # Ignora arquivos de cobertura de testes
 /coverage
+.vercel
