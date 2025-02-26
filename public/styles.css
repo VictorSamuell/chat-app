@@ -51,7 +51,7 @@ body {
 }
 
 #messages li.user-joined {
-    background: #2b2e2c; /* Verde para "entrou" */
+    background: #2b2e2c;
     color: #54cc36;
     
 }
