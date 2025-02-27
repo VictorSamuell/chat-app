@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         socket.emit('set username', username);
     }
 
+    //evento de submit ao formulário
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         if (input.value) {
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    //evento de recebimento de mensagem
     socket.on('chat message', (data) => {
         const item = document.createElement('li');
         item.textContent = `${data.username}: ${data.msg}`;
@@ -26,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         messages.scrollTop = messages.scrollHeight;
     });
 
+    //evento de usuário conectado
     socket.on('user connected', (username) => {
         const item = document.createElement('li');
         item.textContent = `${username} entrou no chat.`;

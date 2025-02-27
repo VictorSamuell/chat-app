@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-
+// pasta public para arquivos estaticos
 app.use(express.static(path.join(__dirname, 'public')));
 
 // index.html
@@ -54,7 +54,8 @@ io.on('connection', (socket) => {
     });
 });
 
-// Inicia o servidor
+//inicia o servidor tanto no local 
+//process.env.PORT vercel, heroku , render
 const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
