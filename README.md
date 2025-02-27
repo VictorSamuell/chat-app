@@ -8,9 +8,4 @@ Um simples chat em tempo real usando **Node.js**, **Express**, **Socket.IO** e *
 - Envie e receba mensagens em tempo real.
 - Notificação quando um novo usuário entra no chat.
 
-## Como Rodar Localmente
-
-1. **Clone o repositório**:
-   ```bash
-   git clone https://github.com/seu-usuario/chat-app.git
-   cd chat-app
+## Chame um colega para entrar no site 
