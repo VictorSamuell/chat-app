@@ -158,3 +158,10 @@ button:hover {
       font-size: 20px;
     }
   }
+
+
+  a {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: none;
+}
