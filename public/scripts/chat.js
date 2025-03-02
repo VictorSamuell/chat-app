@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    //socket.io
     const socket = io();
 
+
+    //evento de submit ao formulário
     const form = document.getElementById('chat-form');
     const input = document.getElementById('input');
     const messages = document.getElementById('messages');
