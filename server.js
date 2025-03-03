@@ -3,6 +3,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const path = require('path');
 
+//express
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
@@ -44,7 +45,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    
+    //função para desconectar o usuário
     socket.on('disconnect', () => {
         const username = users[socket.id];
         if (username) {
