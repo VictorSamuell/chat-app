@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    //função para desconectar o usuário
+    //função para desconectar o usuário'
     socket.on('disconnect', () => {
         const username = users[socket.id];
         if (username) {

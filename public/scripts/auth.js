@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = usernameInput.value.trim();
 
         if (username) {
-            localStorage.setItem('username', username); // Armazena o nome de usuário
+            localStorage.setItem('username', username); 
             socket.emit('set username', username);
             window.location.href = '/chat'; 
         }
