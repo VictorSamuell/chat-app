@@ -40,10 +40,13 @@ Thumbs.db
 .pnp.js
 
 # Ignora arquivos de configuração do npm/yarn
-package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
 # Ignora arquivos de cobertura de testes
 /coverage
 .vercel
+
+# Dados locais do Papo e backup anterior à atualização
+/data/
+/.codex-backups/

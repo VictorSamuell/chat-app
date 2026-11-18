@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="chat-container">
-        <ul id="messages"></ul>
-        <form id="chat-form">
-            <input id="input" autocomplete="off" placeholder="Digite sua mensagem aqui :" />
-            <button>Enviar</button>
-        </form>
-    </div>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="scripts/chat.js"></script>
-</body>
-</html>
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#00aff0"><title>Sala · Zap 2</title><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/socket.io/socket.io.js" defer></script><script src="/scripts/shared.js" defer></script><script src="/scripts/chat.js" defer></script></head>
+<body class="chat-page">
+<div class="app-shell"><aside id="sidebar" class="sidebar"><div class="sidebar-brand"><a class="brand" href="/"><span class="brand-icon">Z</span>Zap 2</a><button id="close-sidebar" class="icon-button mobile-only" aria-label="Fechar menu">×</button></div><a class="new-room-link" href="/">＋ Nova conversa</a><div class="sidebar-label">CONVERSAS</div><nav id="room-nav" aria-label="Salas recentes"></nav><div class="sidebar-spacer"></div><div class="sidebar-note"><strong>Convide seus amigos</strong><p>Copie o link da sala e envie para quem você quer por perto.</p><button class="text-link" id="sidebar-invite">Copiar convite ↗</button></div><div class="profile"><span id="my-avatar" class="avatar lime">?</span><div><strong id="my-name">Seu apelido</strong><small>Disponível</small></div><a href="/" class="icon-button" aria-label="Sair da sala" title="Sair da sala">↗</a></div></aside>
+<main class="chat-main"><header class="chat-header"><button id="open-sidebar" class="icon-button mobile-only" aria-label="Abrir menu" aria-expanded="false">☰</button><span class="room-symbol" aria-hidden="true">☺</span><div class="room-heading"><h1 id="room-title">Carregando sala…</h1><p><span id="connection-dot" class="status-dot offline"></span><span id="connection-status" role="status">Conectando…</span><span class="header-divider">·</span><button id="online-button" class="plain-button">0 online</button></p></div><div class="header-actions"><button id="search-toggle" class="icon-button" aria-label="Buscar mensagens" title="Buscar mensagens">⌕</button><button id="details-toggle" class="icon-button" aria-label="Ver participantes e fixados" title="Detalhes da sala">☷</button><button id="invite-button" class="button primary small">Convidar <span aria-hidden="true">↗</span></button></div></header>
+<div id="search-panel" class="search-panel" hidden><form id="search-form"><label class="sr-only" for="search-input">Buscar nesta sala</label><input id="search-input" maxlength="100" placeholder="Buscar uma mensagem nesta sala…" type="search"><button class="button secondary" type="submit">Buscar</button><button id="close-search" type="button" class="icon-button" aria-label="Fechar busca">×</button></form><div id="search-results" class="search-results" aria-live="polite"></div></div>
+<div id="pin-strip" class="pin-strip" hidden><span>⌖</span><button id="show-pins" class="plain-button"></button><span>↗</span></div>
+<section id="timeline" class="timeline" aria-label="Conversa"><div class="conversation-welcome"><span class="welcome-symbol" aria-hidden="true">☺</span><p class="eyebrow">CONVERSA EM GRUPO</p><h2 id="welcome-title">Sua conversa começa aqui.</h2><p>As melhores conversas começam com um oi.</p></div><button id="load-older" class="older-button" hidden>Carregar mensagens anteriores</button><div id="empty-state" class="empty-conversation">Convide seus amigos para começar a conversar.</div><div id="messages" role="log" aria-label="Mensagens" aria-live="polite" aria-relevant="additions"></div></section>
+<button id="new-messages" class="new-messages" hidden>Novas mensagens ↓</button><div class="composer-area"><div id="typing-indicator" class="typing-indicator" role="status"></div><form id="chat-form" class="composer"><label class="sr-only" for="message-input">Sua mensagem</label><textarea id="message-input" rows="1" maxlength="2000" placeholder="Entre na sala para conversar…" disabled></textarea><button id="emoji-button" type="button" class="icon-button" aria-label="Adicionar emoji" disabled>☺</button><button id="send-button" class="send-button" type="submit" aria-label="Enviar mensagem" disabled>↑</button></form><div id="emoji-picker" class="emoji-picker" hidden></div><div class="composer-foot"><span>Enter envia <span class="desktop-hint">· Shift + Enter quebra a linha</span></span><span id="character-count">0 / 2000</span></div></div></main>
+<aside id="details-panel" class="details-panel"><div class="details-heading"><h2>Detalhes da conversa</h2><button id="close-details" class="icon-button" aria-label="Fechar detalhes">×</button></div><div class="sidebar-label">PARTICIPANTES <span id="people-count">0</span></div><ul id="participants" class="participants"></ul><div class="details-divider"></div><div class="sidebar-label">MENSAGENS FIXADAS <span id="pin-count">0 / 5</span></div><div id="pinned-messages" class="pinned-messages"></div><div class="room-info"><h3>Sobre esta sala</h3><p>Qualquer pessoa com o link pode entrar e ler o histórico. Compartilhe com quem você quer por perto.</p><p>O histórico fica salvo no servidor.</p></div></aside></div>
+<div id="sidebar-scrim" class="scrim" hidden></div>
+<dialog id="join-dialog" class="modal"><form id="join-form"><span class="mini-icon">☺</span><h2>Entre na conversa</h2><p id="join-description" class="muted">Escolha seu apelido para entrar.</p><label for="join-name">Como podemos te chamar?</label><input id="join-name" maxlength="24" autocomplete="nickname" required placeholder="Seu apelido"><p id="join-error" class="form-error" role="alert"></p><button id="join-submit" class="button primary wide">Entrar na conversa ↗</button><a class="back-home" href="/">Voltar ao início</a></form></dialog>
+<dialog id="invite-dialog" class="modal"><button id="close-invite" class="modal-close icon-button" aria-label="Fechar convite">×</button><span class="mini-icon">↗</span><h2>Convide seus amigos</h2><p class="muted">Envie este link para quem vai fazer parte da conversa.</p><label for="invite-link">Convite da sala</label><input id="invite-link" readonly><button id="copy-invite" class="button primary wide">Copiar link ↗</button><p class="privacy-note">O link dá acesso ao histórico da sala.</p></dialog>
+<dialog id="delete-dialog" class="modal"><h2>Excluir mensagem?</h2><p class="muted">Ela será removida para todos na sala.</p><div class="dialog-actions"><button id="cancel-delete" class="button secondary">Cancelar</button><button id="confirm-delete" class="button danger">Excluir mensagem</button></div></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+</body></html>

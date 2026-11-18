@@ -1,11 +1,15 @@
 {
-  "name": "chat-app",
-  "version": "1.0.0",
+  "name": "zap-2",
+  "version": "2.0.0",
   "description": "Aplicação de chat em tempo real com Node.js e Socket.io",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
   },
+  "engines": { "node": ">=24" },
+  "devDependencies": { "socket.io-client": "^4.8.1" },
   "dependencies": {
     "express": "^4.21.2",
     "socket.io": "^4.8.1"
