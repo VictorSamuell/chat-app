@@ -12,4 +12,4 @@ Verificado em 18/11/2026.
 - `npm run check:cloudflare` gerou o pacote e validou os bindings sem publicar.
 - Navegador conectado ao Wrangler local: criação de sala pela interface, envio de mensagem, recarga e reconexão com histórico preservado; console sem erros.
 
-A validação local não comprova o deploy na conta do usuário. O estado da publicação é informado separadamente na entrega. Nenhum histórico do Render foi importado automaticamente.
+Publicação confirmada em https://zap-2-chat.victorsamklv.workers.dev em 18/11/2026, versão b79d553f-3fbc-4310-9847-faad4b7fd212. A API pública respondeu ok e platform=cloudflare. No navegador, foram confirmados criação de sala, envio, reconexão após recarga e recuperação do histórico, sem erros de console. Nenhum histórico do Render foi importado automaticamente. O deploy automático pelo GitHub ainda não foi conectado.

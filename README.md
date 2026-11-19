@@ -1,5 +1,9 @@
 # Zap 2
 
+Online: https://zap-2-chat.victorsamklv.workers.dev
+
+Publicado na Cloudflare em 18/11/2026. Para atualizar o site a partir deste projeto autenticado, execute `npm run deploy:cloudflare`. O deploy automático por push ainda precisa ser conectado no painel, conforme instruções abaixo.
+
 Chat para amigos com salas por convite, histórico, busca, mensagens fixadas, presença e reconexão. A interface é compartilhada por dois ambientes:
 
 - **Cloudflare Workers + Durable Objects SQLite:** destino recomendado para o plano gratuito. Os dados da sala são persistentes e as conexões usam WebSockets com hibernação.
