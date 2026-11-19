@@ -6,3 +6,7 @@ data
 test
 .env
 .env.*
+.wrangler
+.cloudflare-build
+cloudflare
+wrangler.jsonc

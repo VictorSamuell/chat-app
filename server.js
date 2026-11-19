@@ -61,6 +61,7 @@ function createChatServer({ dbPath = path.join(__dirname, 'data', 'chat.sqlite')
     if (!room) return res.status(404).json({ error: 'Sala não encontrada. Confira o convite.' });
     res.json({ id: room.id, name: room.name });
   });
+  app.get('/api/client.js', (req, res) => res.redirect('/socket.io/socket.io.js'));
   app.get('/api/health', (req, res) => res.json({ ok: true }));
   app.get(['/r/:id', '/chat'], (req, res) => res.sendFile(path.join(__dirname, 'public', 'chat.html')));
   app.use(express.static(path.join(__dirname, 'public')));

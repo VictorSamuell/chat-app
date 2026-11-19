@@ -50,3 +50,9 @@ pnpm-lock.yaml
 # Dados locais do Papo e backup anterior à atualização
 /data/
 /.codex-backups/
+
+# Desenvolvimento Cloudflare
+/.wrangler/
+/.cloudflare-build/
+.dev.vars
+.dev.vars.*

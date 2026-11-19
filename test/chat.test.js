@@ -116,6 +116,7 @@ test('HTTP entrega aplicação, bloqueia origem indevida e rejeita sala inválid
   const f = await fixture(t);
   const page = await fetch(f.url); assert.equal(page.status, 200); assert.match(page.headers.get('content-security-policy'), /default-src 'self'/);
   assert.match(await page.text(), /Zap 2/);
+  assert.equal((await fetch(`${f.url}/api/client.js`)).status, 200);
   const bad = await fetch(`${f.url}/api/rooms`, { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: 'https://outro.example' }, body: JSON.stringify({ name: 'Sala', token: token() }) });
   assert.equal(bad.status, 403);
   assert.equal((await fetch(`${f.url}/api/rooms/nao-existe`)).status, 404);
